@@ -2,7 +2,7 @@ import glm
 
 
 class Light:
-    def __init__(self, position=(3, 3, -3), color=(1, 1, 1)):
+    def __init__(self, position=(0, 15, 15), color=(1, 1, 1)):
         self.position = glm.vec3(position)
         self.color = glm.vec3(color)
         # intensities

@@ -1,10 +1,14 @@
 import numpy as np
+import pywavefront
 
 
 class VBO:
     def __init__(self, ctx):
         self.vbos = {}
         self.vbos['cube'] = CubeVBO(ctx)
+        self.vbos['cat_1'] = Cat1VBO(ctx)
+        self.vbos['cat_2'] = Cat2VBO(ctx)
+        self.vbos['cat_3'] = Cat3VBO(ctx)
 
     def destroy(self):
         [vbo.destroy() for vbo in self.vbos.values()]
@@ -71,3 +75,46 @@ class CubeVBO(BaseVBO):
         vertex_data = np.hstack([tex_coord_data, vertex_data])
 
         return vertex_data
+
+
+class Cat1VBO(BaseVBO):
+    def __init__(self, app):
+        super().__init__(app)
+        self.format = '2f 3f 3f'
+        self.attribs = ['in_texcoord_0', 'in_normal', 'in_position']
+
+    def get_vertex_data(self):
+        objs = pywavefront.Wavefront('objects/Cat_1/12222_Cat_v1_l3.obj', cache=True, parse=True)
+        obj = objs.materials.popitem()[1]
+        vertex_data = obj.vertices
+        vertex_data = np.array(vertex_data, dtype=np.float32)
+        return vertex_data
+
+
+class Cat2VBO(BaseVBO):
+    def __init__(self, app):
+        super().__init__(app)
+        self.format = '2f 3f 3f'
+        self.attribs = ['in_texcoord_0', 'in_normal', 'in_position']
+
+    def get_vertex_data(self):
+        objs = pywavefront.Wavefront('objects/Cat_2/20430_Cat_v1_NEW.obj', cache=True, parse=True)
+        obj = objs.materials.popitem()[1]
+        vertex_data = obj.vertices
+        vertex_data = np.array(vertex_data, dtype=np.float32)
+        return vertex_data
+
+
+class Cat3VBO(BaseVBO):
+    def __init__(self, app):
+        super().__init__(app)
+        self.format = '2f 3f 3f'
+        self.attribs = ['in_texcoord_0', 'in_normal', 'in_position']
+
+    def get_vertex_data(self):
+        objs = pywavefront.Wavefront('objects/Cat_3/12221_Cat_v1_l3.obj', cache=True, parse=True)
+        obj = objs.materials.popitem()[1]
+        vertex_data = obj.vertices
+        vertex_data = np.array(vertex_data, dtype=np.float32)
+        return vertex_data
+
