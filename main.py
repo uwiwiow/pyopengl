@@ -2,7 +2,10 @@ import pygame as pg
 import moderngl as mgl
 import sys
 from model import *
-from camera import *
+from camera import Camera
+from light import Light
+from mesh import Mesh
+from scene import Scene
 
 
 class GraphicsEngine:
@@ -17,6 +20,9 @@ class GraphicsEngine:
         pg.display.gl_set_attribute(pg.GL_CONTEXT_PROFILE_MASK, pg.GL_CONTEXT_PROFILE_CORE)
         # create opengl context
         pg.display.set_mode(self.WIN_SIZE, flags=pg.OPENGL | pg.DOUBLEBUF)
+        # mouse settings
+        pg.event.set_grab(True)
+        pg.mouse.set_visible(False)
         # detect and use existing opengl context
         self.ctx = mgl.create_context()
         # self.ctx.front_face = 'cw' -> para renderizar en forma horaria, solo se ven las caras interiores
@@ -24,15 +30,20 @@ class GraphicsEngine:
         # create an object to help track time
         self.clock = pg.time.Clock()
         self.time = 0
+        self.delta_time = 0
+        # light
+        self.light = Light()
         # camera
         self.camera = Camera(self)
+        # mesh
+        self.mesh = Mesh(self)
         # scene
-        self.scene = Cube(self)
+        self.scene = Scene(self)
 
     def check_event(self):
         for event in pg.event.get():
             if event.type == pg.QUIT or (event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE):
-                self.scene.destroy()
+                self.mesh.destroy()
                 pg.quit()
                 sys.exit()
 
@@ -51,8 +62,9 @@ class GraphicsEngine:
         while True:
             self.get_time()
             self.check_event()
+            self.camera.update()
             self.render()
-            self.clock.tick(144)
+            self.delta_time = self.clock.tick(144)
 
 
 if __name__ == '__main__':
