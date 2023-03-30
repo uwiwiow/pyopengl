@@ -27,10 +27,22 @@ class VAO:
             vbo=self.vbo.vbos['cat_2']
         )
 
-        # cat2 vao
+        # cat3 vao
         self.vaos['cat_3'] = self.get_vao(
             program=self.program.programs['default'],
             vbo=self.vbo.vbos['cat_3']
+        )
+
+        # skybox vao
+        self.vaos['skybox'] = self.get_vao(
+            program=self.program.programs['skybox'],
+            vbo=self.vbo.vbos['skybox']
+        )
+
+        # advanced skybox vao
+        self.vaos['advanced_skybox'] = self.get_vao(
+            program=self.program.programs['advanced_skybox'],
+            vbo=self.vbo.vbos['advanced_skybox']
         )
 
     def get_vao(self, program, vbo):
