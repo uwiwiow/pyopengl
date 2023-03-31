@@ -57,6 +57,18 @@ class VAO:
             vbo=self.vbo.vbos['cat_3']
         )
 
+        # steve vao
+        self.vaos['steve'] = self.get_vao(
+            program=self.program.programs['default'],
+            vbo=self.vbo.vbos['steve']
+        )
+
+        # shadow steve vao
+        self.vaos['shadow_steve'] = self.get_vao(
+            program=self.program.programs['shadow_map'],
+            vbo=self.vbo.vbos['steve']
+        )
+
         # skybox vao
         self.vaos['skybox'] = self.get_vao(
             program=self.program.programs['skybox'],

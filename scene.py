@@ -17,7 +17,7 @@ class Scene:
         add = self.add_objects
 
         # floor
-        n, s = 20, 2
+        n, s = 60, 2
         for x in range(-n, n, s):
             for z in range(-n, n, s):
                 add(Cube(app, pos=(x, -s, z), tex_id=3))
@@ -27,6 +27,8 @@ class Scene:
             add(Cube(app, pos=(15, i * s, -9 + i), tex_id=2))
             add(Cube(app, pos=(15, i * s, 5 + i), tex_id=2))
 
+        self.steve = Steve(app)
+        add(self.steve)
 
         # moving cube
         self.moving_cube = MovingCube(app, pos=(0, 6, 8), scale=(3, 3, 3), tex_id=2)

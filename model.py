@@ -17,7 +17,9 @@ class BaseModel:
 
     def update(self): ...
 
-    def get_model_matrix(self):
+    def get_model_matrix(self, position=None):
+        if position is not None:
+            self.pos = position
         m_model = glm.mat4()
         # translate
         m_model = glm.translate(m_model, self.pos)
@@ -92,6 +94,15 @@ class MovingCube(Cube):
 
     def update(self):
         self.m_model = self.get_model_matrix()
+        super().update()
+
+
+class Steve(Cube):
+    def __init__(self, app, vao_name='steve', tex_id='steve', pos=(0, 0, 0), rot=(-90, 0, 0), scale=(1, 1, 1)):
+        super().__init__(app, vao_name, tex_id, pos, rot, scale)
+
+    def update(self):
+        self.m_model = self.get_model_matrix(position=glm.vec3(self.camera.position.x, self.camera.position.y, self.camera.position.z))
         super().update()
 
 

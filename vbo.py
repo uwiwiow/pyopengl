@@ -9,6 +9,7 @@ class VBO:
         self.vbos['cat_1'] = Cat1VBO(ctx)
         self.vbos['cat_2'] = Cat2VBO(ctx)
         self.vbos['cat_3'] = Cat3VBO(ctx)
+        self.vbos['steve'] = SteveVBO(ctx)
         self.vbos['skybox'] = SkyBoxVBO(ctx)
         self.vbos['advanced_skybox'] = AdvancedSkyBoxVBO(ctx)
 
@@ -115,6 +116,20 @@ class Cat3VBO(BaseVBO):
 
     def get_vertex_data(self):
         objs = pywavefront.Wavefront('objects/Cat_3/12221_Cat_v1_l3.obj', cache=True, parse=True)
+        obj = objs.materials.popitem()[1]
+        vertex_data = obj.vertices
+        vertex_data = np.array(vertex_data, dtype=np.float32)
+        return vertex_data
+
+
+class SteveVBO(BaseVBO):
+    def __init__(self, app):
+        super().__init__(app)
+        self.format = '2f 3f 3f'
+        self.attribs = ['in_texcoord_0', 'in_normal', 'in_position']
+
+    def get_vertex_data(self):
+        objs = pywavefront.Wavefront('objects/Dog/13463_Australian_Cattle_Dog_v3.obj', cache=True, parse=True)
         obj = objs.materials.popitem()[1]
         vertex_data = obj.vertices
         vertex_data = np.array(vertex_data, dtype=np.float32)
