@@ -15,9 +15,21 @@ class VAO:
             vbo=self.vbo.vbos['cube']
         )
 
+        # shadow cube vao
+        self.vaos['shadow_cube'] = self.get_vao(
+            program=self.program.programs['shadow_map'],
+            vbo=self.vbo.vbos['cube']
+        )
+
         # cat1 vao
         self.vaos['cat_1'] = self.get_vao(
             program=self.program.programs['default'],
+            vbo=self.vbo.vbos['cat_1']
+        )
+
+        # shadow cat1 vao
+        self.vaos['shadow_cat_1'] = self.get_vao(
+            program=self.program.programs['shadow_map'],
             vbo=self.vbo.vbos['cat_1']
         )
 
@@ -27,9 +39,21 @@ class VAO:
             vbo=self.vbo.vbos['cat_2']
         )
 
+        # shadow cat2 vao
+        self.vaos['shadow_cat_2'] = self.get_vao(
+            program=self.program.programs['shadow_map'],
+            vbo=self.vbo.vbos['cat_2']
+        )
+
         # cat3 vao
         self.vaos['cat_3'] = self.get_vao(
             program=self.program.programs['default'],
+            vbo=self.vbo.vbos['cat_3']
+        )
+
+        # shadow cat3 vao
+        self.vaos['shadow_cat_3'] = self.get_vao(
+            program=self.program.programs['shadow_map'],
             vbo=self.vbo.vbos['cat_3']
         )
 
@@ -46,7 +70,7 @@ class VAO:
         )
 
     def get_vao(self, program, vbo):
-        vao = self.ctx.vertex_array(program, [(vbo.vbo, vbo.format, *vbo.attribs)])
+        vao = self.ctx.vertex_array(program, [(vbo.vbo, vbo.format, *vbo.attribs)], skip_errors=True)
         return vao
 
     def destroy(self):

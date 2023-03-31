@@ -16,17 +16,21 @@ class Scene:
         app = self.app
         add = self.add_objects
 
-        n, s = 30, 3
-
+        # floor
+        n, s = 20, 2
         for x in range(-n, n, s):
             for z in range(-n, n, s):
-                add(Cube(app, pos=(x, -s, z)))
+                add(Cube(app, pos=(x, -s, z), tex_id=3))
 
-        add(Cat1(app, pos=(15, -2, -10)))
-        add(Cat2(app, pos=(0, -2, -10)))
-        add(Cat3(app, pos=(-15, -2, -10)))
+        # columns
+        for i in range(9):
+            add(Cube(app, pos=(15, i * s, -9 + i), tex_id=2))
+            add(Cube(app, pos=(15, i * s, 5 + i), tex_id=2))
 
-    def render(self):
-        for obj in self.objects:
-            obj.render()
-        self.skybox.render()
+
+        # moving cube
+        self.moving_cube = MovingCube(app, pos=(0, 6, 8), scale=(3, 3, 3), tex_id=2)
+        add(self.moving_cube)
+
+    def update(self):
+        self.moving_cube.rot.xyz = self.app.time
